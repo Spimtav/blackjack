@@ -30,6 +30,15 @@ func (d *Deck) Pop() Card {
 	return card
 }
 
+func (d Deck) AsString() string {
+	var s string
+	for _, card := range d.Cards {
+		s += fmt.Sprintf(" %s,", card.AsString())
+	}
+
+	return s
+}
+
 func (d Deck) PrintDeck() {
 	for _, card := range d.Cards {
 		fmt.Println(card.AsString())

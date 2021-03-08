@@ -31,4 +31,36 @@ var _ = Context("#DeckTest", func () {
 			}
 		})
 	})
+
+	Describe("When a deck is shuffled", func() {
+		It("randomizes the order of the cards in the deck", func() {
+			var deck blackjack.Deck
+			deck.Create()
+			beforeOrder := deck.AsString()
+			deck.Shuffle()
+
+			Expect(beforeOrder).NotTo(Equal(deck.AsString()))
+		})
+	})
+
+	Describe("When a deck is Popped", func() {
+		It("returns the first card in the deck", func() {
+			var deck blackjack.Deck
+			deck.Create()
+
+			Expect(deck.Pop().AsString()).To(Equal("Ace of Spades"))
+		})
+
+		It("removes that card from the deck", func() {
+			var deck blackjack.Deck
+			deck.Create()
+			poppedCard := deck.Pop()
+
+			Expect(len(deck.Cards)).To(Equal(51))
+
+			for _, card := range deck.Cards {
+				Expect(card.AsString()).NotTo(Equal(poppedCard.AsString()))
+			}
+		})
+	})
 })
